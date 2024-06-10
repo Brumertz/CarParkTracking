@@ -163,13 +163,13 @@
             buttonAddPlates.Name = "buttonAddPlates";
             buttonAddPlates.Size = new Size(75, 23);
             buttonAddPlates.TabIndex = 10;
-            buttonAddPlates.Text = "Add";
+            buttonAddPlates.Text = "Enter";
             buttonAddPlates.UseVisualStyleBackColor = true;
             buttonAddPlates.Click += buttonAdd_Click;
             // 
             // buttonEditPlate
             // 
-            buttonEditPlate.Location = new Point(136, 46);
+            buttonEditPlate.Location = new Point(43, 77);
             buttonEditPlate.Name = "buttonEditPlate";
             buttonEditPlate.Size = new Size(75, 23);
             buttonEditPlate.TabIndex = 11;
@@ -179,11 +179,11 @@
             // 
             // buttonDeletePlate
             // 
-            buttonDeletePlate.Location = new Point(43, 77);
+            buttonDeletePlate.Location = new Point(136, 46);
             buttonDeletePlate.Name = "buttonDeletePlate";
             buttonDeletePlate.Size = new Size(75, 23);
             buttonDeletePlate.TabIndex = 12;
-            buttonDeletePlate.Text = "Delete";
+            buttonDeletePlate.Text = "Exit";
             buttonDeletePlate.UseVisualStyleBackColor = true;
             buttonDeletePlate.Click += buttonDelete_Click;
             // 
