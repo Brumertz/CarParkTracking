@@ -6,37 +6,30 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using static System.Windows.Forms.DataFormats;
+
 
 namespace CarTrackingPrototype
 {
     public partial class CarParkTracking : Form
     {
 
-        private List<string> allLicensePlates = new List<string>(); // Main list to hold all license plate data
-        private List<string> taggedLicensePlates = new List<string>(); // List to hold the license plate data which has been tagged for further investigation
+        private List<string> allLicensePlates = new List<string>();
+        private List<string> taggedLicensePlates = new List<string>();
+        
+
+
         public CarParkTracking()
         {
             InitializeComponent();
             AddToolTips();
-            // Subscribe to the FormClosing event 
-            // Set the TextBox to handle only uppercase letters
             textBoxRegoPlate.CharacterCasing = CharacterCasing.Upper;
             textBoxRegoPlate.MaxLength = 8;
-            // Attach event handler for KeyPress to restrict input
-#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
+            #pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
             textBoxRegoPlate.KeyPress += TextBoxRegoPlate_KeyPress;
-#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
+            #pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
+            InitializeStatusStrip(statusStrip2); // Initialize the status strip
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
         private void listBoxRegoPlates_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxEnteringVehicles.SelectedIndex >= 0)
@@ -294,7 +287,7 @@ namespace CarTrackingPrototype
             {
                 MessageBox.Show("Please select a registration plate to tag or untag.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        
+
         }
         private void buttonReset_Click(object sender, EventArgs e)
         {
@@ -388,7 +381,7 @@ namespace CarTrackingPrototype
             const string regexPattern = @"^[1-9][A-Z]{3}-\d{3}$";
             return Regex.IsMatch(rego, regexPattern);
         }
-       
+
         private void UpdateListBox()
         {
             listBoxEnteringVehicles.Items.Clear();
@@ -415,12 +408,11 @@ namespace CarTrackingPrototype
             }
         }
 
-        private int fileCounter = 0; // Counter for auto-incrementing file names
-
+        private int fileCounter = 0;
         // Method to save data to a text file
         private void SaveData()
         {
-            
+
 
             // Construct the file name with the auto-incrementing counter
             string fileName = $"day_{fileCounter:00}.txt";
@@ -439,7 +431,7 @@ namespace CarTrackingPrototype
                 // Display an error message if saving fails
                 MessageBox.Show($"Error saving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
         private void listBoxExitingVehicles_DoubleClick(object sender, EventArgs e)
         {
@@ -488,6 +480,38 @@ namespace CarTrackingPrototype
             ToolTip toolTipListBoxExitingVehicles = new ToolTip();
             toolTipListBoxExitingVehicles.SetToolTip(listBoxExitingVehicles, "Vehicles Tagged");
         }
-    }
 
+        private StatusStrip GetStatusStrip1()
+        {
+            return statusStrip2;
+        }
+
+        private void InitializeStatusStrip(StatusStrip statusStrip1)
+        {
+            // Create and add the StatusStrip to the form
+            
+            
+            Controls.Add(statusStrip2);
+            // Create and add the ToolStripStatusLabel to the StatusStrip
+            ToolStripStatusLabel toolStripStatusLabel = new ToolStripStatusLabel();
+            toolStripStatusLabel.Size = new Size(120, 20);
+            toolStripStatusLabel.Text = "Ready"; // Initial text
+            statusStrip2.Items.Add(toolStripStatusLabel);
+        } // Method to update the status message
+        private void UpdateStatusMessage(string message)
+        {
+            if (statusStrip2.Items.Count > 0 && statusStrip2.Items[0] is ToolStripStatusLabel label)
+            {
+                label.Text = message;
+            }
+        }
+
+        // Example method to demonstrate how to update the status message
+        private void ExampleMethod()
+        {
+            // Call this method when you want to update the status message
+            UpdateStatusMessage("An error occurred!");
+        }
+
+    }
 }

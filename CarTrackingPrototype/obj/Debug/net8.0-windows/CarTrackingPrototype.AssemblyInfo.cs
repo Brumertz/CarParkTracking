@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CarTrackingPrototype")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9385f9e68e2851f1278b216d722d69fb05d1431")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c62aa052a3d33eaf83b1193fdd8d2c6e835383c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CarTrackingPrototype")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CarTrackingPrototype")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

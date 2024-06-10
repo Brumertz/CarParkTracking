@@ -59,10 +59,14 @@
             toolTipButtonBinarySearch = new ToolTip(components);
             toolTipListBoxEnteringVehicles = new ToolTip(components);
             toolTipListBoxExitingVehicles = new ToolTip(components);
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            statusStrip2 = new StatusStrip();
+            toolStripStatusLabel2 = new ToolStripStatusLabel();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            statusStrip2.SuspendLayout();
             SuspendLayout();
             // 
             // listBoxEnteringVehicles
@@ -71,7 +75,7 @@
             listBoxEnteringVehicles.Location = new Point(357, 155);
             listBoxEnteringVehicles.Margin = new Padding(3, 4, 3, 4);
             listBoxEnteringVehicles.Name = "listBoxEnteringVehicles";
-            listBoxEnteringVehicles.Size = new Size(207, 544);
+            listBoxEnteringVehicles.Size = new Size(207, 444);
             listBoxEnteringVehicles.TabIndex = 0;
             listBoxEnteringVehicles.SelectedIndexChanged += listBoxRegoPlates_SelectedIndexChanged;
             listBoxEnteringVehicles.DoubleClick += listBoxEnteringVehicles_DoubleClick;
@@ -146,7 +150,6 @@
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
             groupBox1.Text = "Rego Plates File";
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // buttonReset
             // 
@@ -250,7 +253,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 15;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // listBoxExitingVehicles
             // 
@@ -258,15 +260,38 @@
             listBoxExitingVehicles.Location = new Point(587, 155);
             listBoxExitingVehicles.Margin = new Padding(3, 4, 3, 4);
             listBoxExitingVehicles.Name = "listBoxExitingVehicles";
-            listBoxExitingVehicles.Size = new Size(204, 544);
+            listBoxExitingVehicles.Size = new Size(204, 444);
             listBoxExitingVehicles.TabIndex = 16;
             listBoxExitingVehicles.DoubleClick += listBoxExitingVehicles_DoubleClick;
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Margin = new Padding(0, 3, 0, 2);
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(151, 20);
+            toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // statusStrip2
+            // 
+            statusStrip2.ImageScalingSize = new Size(20, 20);
+            statusStrip2.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel2 });
+            statusStrip2.Location = new Point(0, 623);
+            statusStrip2.Name = "statusStrip2";
+            statusStrip2.Size = new Size(850, 22);
+            statusStrip2.TabIndex = 17;
+            statusStrip2.Text = "ToolStripStatusLabel";
+            // 
+            // toolStripStatusLabel2
+            // 
+            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            toolStripStatusLabel2.Size = new Size(0, 16);
             // 
             // CarParkTracking
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(833, 840);
+            ClientSize = new Size(850, 645);
+            Controls.Add(statusStrip2);
             Controls.Add(listBoxExitingVehicles);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
@@ -283,6 +308,8 @@
             groupBox2.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            statusStrip2.ResumeLayout(false);
+            statusStrip2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -318,5 +345,8 @@
         private ToolTip toolTipButtonBinarySearch;
         private ToolTip toolTipListBoxEnteringVehicles;
         private ToolTip toolTipListBoxExitingVehicles;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private StatusStrip statusStrip2;
+        private ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
