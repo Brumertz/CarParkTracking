@@ -13,8 +13,8 @@ namespace CarTrackingPrototype
     public partial class CarParkTracking : Form
     {
 
-        private List<string> enteringVehicles = new List<string>();
-        private List<string> exitingVehicles = new List<string>();
+        private List<string> allLicensePlates = new List<string>(); // Main list to hold all license plate data
+        private List<string> taggedLicensePlates = new List<string>(); // List to hold the license plate data which has been tagged for further investigation
         public CarParkTracking()
         {
             InitializeComponent();
@@ -61,15 +61,15 @@ namespace CarTrackingPrototype
                 {
                     try
                     {
+                        // Read file content and parse lines
                         string[] lines = File.ReadAllLines(openFileDialog.FileName);
-                        enteringVehicles.Clear(); // Limpiar la lista actual antes de cargar nuevos datos
 
                         foreach (string line in lines)
                         {
                             string rego = line.Trim();
-                            if (IsValidRego(rego) || rego.EndsWith(" (Tagged)"))
+                            if (IsValidRego(rego))
                             {
-                                enteringVehicles.Add(rego);
+                                allLicensePlates.Add(rego);
                             }
                         }
 
@@ -81,26 +81,34 @@ namespace CarTrackingPrototype
                     }
                 }
             }
-
         }
-        private void buttonSaveData_Click(object sender, EventArgs e)
+
+
+
+            private void buttonSaveData_Click(object sender, EventArgs e)
         {
             using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
                 saveFileDialog.Filter = "Text files (*.txt)|*.txt";
+                saveFileDialog.InitialDirectory = @"C:\YourDirectory"; // Set the directory where files are saved
+
+                // Set the default file name
+                saveFileDialog.FileName = "day_01.txt";
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        File.WriteAllLines(saveFileDialog.FileName, enteringVehicles.Concat(exitingVehicles));
+                        File.WriteAllLines(saveFileDialog.FileName, allLicensePlates.Concat(taggedLicensePlates));
+                        MessageBox.Show("Data saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error saving file: " + ex.Message);
+                        MessageBox.Show("Error saving file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
+            SaveData();
 
         }
 
@@ -110,9 +118,9 @@ namespace CarTrackingPrototype
         {
             string newRego = textBoxRegoPlate.Text.Trim();
 
-            if (IsValidRego(newRego) && !enteringVehicles.Contains(newRego))
+            if (IsValidRego(newRego) && !allLicensePlates.Contains(newRego))
             {
-                enteringVehicles.Add(newRego);
+                allLicensePlates.Add(newRego);
                 UpdateListBoxes();
 
             }
@@ -120,7 +128,8 @@ namespace CarTrackingPrototype
             {
                 MessageBox.Show("Invalid registration plate format or duplicate detected.");
             }
-
+            textBoxRegoPlate.Clear();
+            
         }
 
         private void buttonEditPlate_Click(object sender, EventArgs e)
@@ -132,10 +141,10 @@ namespace CarTrackingPrototype
                 // Get the edited registration plate from textBoxRegoPlate
                 string editedRego = textBoxRegoPlate.Text.Trim();
 
-                if (IsValidRego(editedRego) && !enteringVehicles.Contains(editedRego))
+                if (IsValidRego(editedRego) && !allLicensePlates.Contains(editedRego))
                 {
                     // Update the registration plate in the list
-                    enteringVehicles[selectedIndex] = editedRego;
+                    allLicensePlates[selectedIndex] = editedRego;
                     UpdateListBoxes();
                     textBoxRegoPlate.Clear();
 
@@ -155,14 +164,28 @@ namespace CarTrackingPrototype
             if (listBoxEnteringVehicles.SelectedIndex >= 0)
             {
                 int selectedIndex = listBoxEnteringVehicles.SelectedIndex;
-                string selectedRego = enteringVehicles[selectedIndex];
+                string selectedRego = allLicensePlates[selectedIndex];
 
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + selectedRego + "?", "Delete Confirmation", MessageBoxButtons.YesNo);
 
                 if (result == DialogResult.Yes)
                 {
-                    enteringVehicles.RemoveAt(selectedIndex);
-                    exitingVehicles.Add(selectedRego); // Agregar a la lista de vehículos que están saliendo
+                    allLicensePlates.RemoveAt(selectedIndex);
+                    taggedLicensePlates.Remove(selectedRego); // Remove from the list of vehicles that are exiting
+                    UpdateListBoxes();
+                }
+            }
+            else if (listBoxExitingVehicles.SelectedIndex >= 0)
+            {
+                int selectedIndex = listBoxExitingVehicles.SelectedIndex;
+                string selectedRego = taggedLicensePlates[selectedIndex];
+
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + selectedRego + "?", "Delete Confirmation", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    taggedLicensePlates.RemoveAt(selectedIndex);
+                    allLicensePlates.Remove(selectedRego); // Remove from the list of vehicles that are entering
                     UpdateListBoxes();
                 }
             }
@@ -206,7 +229,16 @@ namespace CarTrackingPrototype
             if (listBoxEnteringVehicles.SelectedIndex >= 0)
             {
                 int selectedIndex = listBoxEnteringVehicles.SelectedIndex;
-                ToggleTag(selectedIndex);
+                string selectedRego = allLicensePlates[selectedIndex];
+
+                // Check if the license plate is not already tagged
+                if (!selectedRego.EndsWith(" (Tagged)"))
+                {
+                    selectedRego += " (Tagged)";
+                    taggedLicensePlates.Add(selectedRego); // Add to the list of tagged license plates
+                    UpdateListBoxes();
+                    textBoxRegoPlate.Clear();   
+                }
             }
             else
             {
@@ -215,48 +247,37 @@ namespace CarTrackingPrototype
         }
         private void buttonReset_Click(object sender, EventArgs e)
         {
-            enteringVehicles.Clear();
-            exitingVehicles.Clear();
+            allLicensePlates.Clear();
+            taggedLicensePlates.Clear();
             UpdateListBoxes();
             textBoxRegoPlate.Clear();
 
         }
         private void UpdateListBoxes()
-        {
-            SortEnteringVehicles();
-
-            listBoxEnteringVehicles.Items.Clear();
-            listBoxExitingVehicles.Items.Clear();
-
-            foreach (string rego in enteringVehicles)
-            {
-                listBoxEnteringVehicles.Items.Add(rego);
-            }
-
-            foreach (string rego in exitingVehicles)
-            {
-                listBoxExitingVehicles.Items.Add(rego);
-            }
-
-            // Add tagged vehicles from enteringVehicles to listBoxExitingVehicles
-            foreach (string rego in enteringVehicles)
-            {
-                if (rego.EndsWith(" (TAGGED)"))
                 {
-                    listBoxExitingVehicles.Items.Add(rego);
+                    listBoxEnteringVehicles.Items.Clear();
+                    listBoxExitingVehicles.Items.Clear();
+
+                    foreach (string rego in allLicensePlates)
+                    {
+                        listBoxEnteringVehicles.Items.Add(rego);
+                    }
+
+                    foreach (string rego in taggedLicensePlates)
+                    {
+                        listBoxExitingVehicles.Items.Add(rego);
+                    }
                 }
-            }
-        }
         private int BinarySearch(string rego)
         {
             SortListForBinarySearch();
             int low = 0;
-            int high = enteringVehicles.Count - 1;
+            int high = allLicensePlates.Count - 1;
 
             while (low <= high)
             {
                 int mid = low + (high - low) / 2;
-                int comparison = string.Compare(enteringVehicles[mid], rego, StringComparison.OrdinalIgnoreCase);
+                int comparison = string.Compare(allLicensePlates[mid], rego, StringComparison.OrdinalIgnoreCase);
 
                 if (comparison == 0)
                 {
@@ -275,13 +296,13 @@ namespace CarTrackingPrototype
         }
         private void SortListForBinarySearch()
         {
-            enteringVehicles.Sort(StringComparer.OrdinalIgnoreCase);
+            allLicensePlates.Sort(StringComparer.OrdinalIgnoreCase);
         }
         private int LinearSearch(string rego)
         {
-            for (int i = 0; i < enteringVehicles.Count; i++)
+            for (int i = 0; i < allLicensePlates.Count; i++)
             {
-                if (string.Equals(enteringVehicles[i], rego, StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(allLicensePlates[i], rego, StringComparison.OrdinalIgnoreCase))
                 {
                     return i;
                 }
@@ -290,15 +311,13 @@ namespace CarTrackingPrototype
         }
         private bool IsValidRego(string rego)
         {
-            // Regular expression to validate the registration plate format
-            // Ensures only uppercase letters and numbers, optionally followed by " (TAGGED)"
-            const string regexPattern = @"^[A-Z0-9]{1,7}( \(TAGGED\))?$";
+            const string regexPattern = @"^[A-Z0-9]{1,7}( \(Tagged\))?$";
             return Regex.IsMatch(rego, regexPattern);
         }
 
         private void ToggleTag(int selectedIndex)
         {
-            string selectedRego = enteringVehicles[selectedIndex];
+            string selectedRego = allLicensePlates    [selectedIndex];
 
             if (selectedRego.EndsWith(" (Tagged)"))
             {
@@ -309,15 +328,15 @@ namespace CarTrackingPrototype
                 selectedRego += " (Tagged)";
             }
 
-            enteringVehicles.RemoveAt(selectedIndex);
-            enteringVehicles.Add(selectedRego);
+            allLicensePlates.RemoveAt(selectedIndex);
+            allLicensePlates.Add(selectedRego);
 
             UpdateListBoxes();
         }
         private void SortEnteringVehicles()
         {
             // Sort the list, placing tagged vehicles at the end
-            enteringVehicles = enteringVehicles
+            allLicensePlates = allLicensePlates
                 .OrderBy(rego => rego.EndsWith(" (Tagged)"))
                 .ThenBy(rego => rego, StringComparer.OrdinalIgnoreCase)
                 .ToList();
@@ -338,6 +357,32 @@ namespace CarTrackingPrototype
             {
                 e.Handled = true; // This prevents non-alphanumeric characters from being entered
             }
+        }
+        private void SaveData()
+        {
+            // Check if the TextBox is empty
+            if (string.IsNullOrWhiteSpace(textBoxRegoPlate.Text))
+            {
+                MessageBox.Show("Please enter a registration plate before saving.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Check for duplicate data
+            string newRego = textBoxRegoPlate.Text.Trim();
+            if (allLicensePlates.Contains(newRego))
+            {
+                MessageBox.Show("Duplicate registration plate detected. Please enter a unique registration plate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Add data to the main List
+            allLicensePlates.Add(newRego);
+            // Clear the TextBox
+            textBoxRegoPlate.Clear();
+            // Refocus into the TextBox
+            textBoxRegoPlate.Focus();
+            // Display a confirmation message
+            MessageBox.Show("The data will be added to the main List<>.\nThe TextBox has been cleared, and the cursor has refocused.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
