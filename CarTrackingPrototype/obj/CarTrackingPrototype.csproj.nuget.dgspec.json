@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\30085204\\Documents\\30085204\\programminATs\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj": {}
+    "C:\\Users\\BrumertzTafe\\OneDrive - TAFE\\CVIV\\Programming\\C#\\AT3\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj": {}
   },
   "projects": {
-    "C:\\Users\\30085204\\Documents\\30085204\\programminATs\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj": {
+    "C:\\Users\\BrumertzTafe\\OneDrive - TAFE\\CVIV\\Programming\\C#\\AT3\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\30085204\\Documents\\30085204\\programminATs\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj",
+        "projectUniqueName": "C:\\Users\\BrumertzTafe\\OneDrive - TAFE\\CVIV\\Programming\\C#\\AT3\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj",
         "projectName": "CarTrackingPrototype",
-        "projectPath": "C:\\Users\\30085204\\Documents\\30085204\\programminATs\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj",
-        "packagesPath": "C:\\Users\\30085204\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\30085204\\Documents\\30085204\\programminATs\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\obj\\",
+        "projectPath": "C:\\Users\\BrumertzTafe\\OneDrive - TAFE\\CVIV\\Programming\\C#\\AT3\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\CarTrackingPrototype.csproj",
+        "packagesPath": "C:\\Users\\BrumertzTafe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\BrumertzTafe\\OneDrive - TAFE\\CVIV\\Programming\\C#\\AT3\\CarParkTracking\\CarParkTracking\\CarTrackingPrototype\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\30085204\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\BrumertzTafe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
