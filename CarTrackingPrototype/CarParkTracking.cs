@@ -468,6 +468,7 @@ namespace CarTrackingPrototype
             toolTipButtons.SetToolTip(buttonDeletePlate, "Vehicle Exit");
             toolTipButtons.SetToolTip(buttonEditPlate, "Edit the Plate");
             toolTipButtons.SetToolTip(buttonAddPlates, "Enter Plate");
+            toolTipButtons.SetToolTip(buttonTag, "Tag Plate");
             toolTipButtons.SetToolTip(buttonReset, "Reset all the data");
             toolTipButtons.SetToolTip(buttonBinarySearch, "Binary Searching");
             toolTipButtons.SetToolTip(buttonLinearSearch, "Linear Searching");
