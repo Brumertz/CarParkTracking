@@ -223,6 +223,8 @@ namespace CarTrackingPrototype
         }
         private void UpdateListBoxes()
         {
+            SortEnteringVehicles();
+
             listBoxEnteringVehicles.Items.Clear();
             listBoxExitingVehicles.Items.Clear();
 
@@ -234,6 +236,15 @@ namespace CarTrackingPrototype
             foreach (string rego in exitingVehicles)
             {
                 listBoxExitingVehicles.Items.Add(rego);
+            }
+
+            // Add tagged vehicles from enteringVehicles to listBoxExitingVehicles
+            foreach (string rego in enteringVehicles)
+            {
+                if (rego.EndsWith(" (TAGGED)"))
+                {
+                    listBoxExitingVehicles.Items.Add(rego);
+                }
             }
         }
         private int BinarySearch(string rego)
