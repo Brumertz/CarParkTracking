@@ -99,7 +99,7 @@ namespace CarTrackingPrototype
             {
                 enteringVehicles.Add(newRego);
                 UpdateListBoxes();
-                textBoxRegoPlate.Clear();
+                
             }
             else
             {
@@ -110,15 +110,12 @@ namespace CarTrackingPrototype
 
         private void buttonEditPlate_Click(object sender, EventArgs e)
         {
-            buttonEditPlate_Click(sender, e, listBoxEnteringVehicles);
-        }
-
-        private void buttonEditPlate_Click(object sender, EventArgs e, ListBox listBoxEnteringVehicles)
-        {
             if (listBoxEnteringVehicles.SelectedIndex >= 0)
             {
                 int selectedIndex = listBoxEnteringVehicles.SelectedIndex;
-                string selectedRego = listBoxEnteringVehicles.SelectedItem.ToString();
+                string? selectedRego = listBoxEnteringVehicles.SelectedItem?.ToString(); // Possible null assignment
+
+                textBoxRegoPlate.Text = selectedRego;
 
                 string editedRego = textBoxRegoPlate.Text.Trim();
 
@@ -137,16 +134,23 @@ namespace CarTrackingPrototype
             {
                 MessageBox.Show("Please select a registration plate to edit.");
             }
-
-
+;
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             if (listBoxEnteringVehicles.SelectedIndex >= 0)
             {
                 int selectedIndex = listBoxEnteringVehicles.SelectedIndex;
-                enteringVehicles.RemoveAt(selectedIndex);
-                UpdateListBoxes();
+                string selectedRego = enteringVehicles[selectedIndex];
+
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + selectedRego + "?", "Delete Confirmation", MessageBoxButtons.YesNo);
+
+                if (result == DialogResult.Yes)
+                {
+                    enteringVehicles.RemoveAt(selectedIndex);
+                    exitingVehicles.Add(selectedRego); // Agregar a la lista de vehículos que están saliendo
+                    UpdateListBoxes();
+                }
             }
             else
             {
@@ -200,6 +204,7 @@ namespace CarTrackingPrototype
             enteringVehicles.Clear();
             exitingVehicles.Clear();
             UpdateListBoxes();
+            textBoxRegoPlate.Clear();
 
         }
         private void UpdateListBoxes()
@@ -216,7 +221,6 @@ namespace CarTrackingPrototype
             {
                 listBoxExitingVehicles.Items.Add(rego);
             }
-
         }
         private int BinarySearch(string rego)
         {

@@ -36,6 +36,7 @@
             buttonBinarySearch = new Button();
             buttonLinearSearch = new Button();
             groupBox1 = new GroupBox();
+            buttonReset = new Button();
             textBoxRegoPlate = new TextBox();
             groupBox2 = new GroupBox();
             buttonAddPlates = new Button();
@@ -45,9 +46,6 @@
             label1 = new Label();
             pictureBox1 = new PictureBox();
             listBoxExitingVehicles = new ListBox();
-            label2 = new Label();
-            listBox1 = new ListBox();
-            buttonReset = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -128,6 +126,17 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Rego Plates File";
             groupBox1.Enter += groupBox1_Enter;
+            // 
+            // buttonReset
+            // 
+            buttonReset.Location = new Point(88, 71);
+            buttonReset.Name = "buttonReset";
+            buttonReset.Size = new Size(75, 23);
+            buttonReset.TabIndex = 6;
+            buttonReset.Text = "Reset";
+            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.UseWaitCursor = true;
+            buttonReset.Click += buttonReset_Click;
             // 
             // textBoxRegoPlate
             // 
@@ -220,42 +229,11 @@
             listBoxExitingVehicles.Size = new Size(179, 409);
             listBoxExitingVehicles.TabIndex = 16;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(28, 476);
-            label2.Name = "label2";
-            label2.Size = new Size(83, 15);
-            label2.TabIndex = 18;
-            label2.Text = "User Feedback";
-            // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(28, 494);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(263, 19);
-            listBox1.TabIndex = 19;
-            // 
-            // buttonReset
-            // 
-            buttonReset.Location = new Point(88, 71);
-            buttonReset.Name = "buttonReset";
-            buttonReset.Size = new Size(75, 23);
-            buttonReset.TabIndex = 6;
-            buttonReset.Text = "Reset";
-            buttonReset.UseVisualStyleBackColor = true;
-            buttonReset.UseWaitCursor = true;
-            buttonReset.Click += this.buttonReset_Click;
-            // 
             // CarParkTracking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(729, 630);
-            Controls.Add(listBox1);
-            Controls.Add(label2);
             Controls.Add(listBoxExitingVehicles);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
@@ -294,8 +272,6 @@
         private Label label1;
         private PictureBox pictureBox1;
         private ListBox listBoxExitingVehicles;
-        private Label label2;
-        private ListBox listBox1;
        
     }
 }
