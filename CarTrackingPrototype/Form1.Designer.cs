@@ -144,6 +144,7 @@
             textBoxRegoPlate.Name = "textBoxRegoPlate";
             textBoxRegoPlate.Size = new Size(104, 23);
             textBoxRegoPlate.TabIndex = 5;
+            textBoxRegoPlate.KeyPress += textBoxRegoPlate_KeyPress_1;
             // 
             // groupBox2
             // 

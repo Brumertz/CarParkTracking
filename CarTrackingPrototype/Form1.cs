@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 
 namespace CarTrackingPrototype
 {
@@ -15,6 +18,13 @@ namespace CarTrackingPrototype
         public CarParkTracking()
         {
             InitializeComponent();
+            // Set the TextBox to handle only uppercase letters
+            textBoxRegoPlate.CharacterCasing = CharacterCasing.Upper;
+            textBoxRegoPlate.MaxLength = 9;
+            // Attach event handler for KeyPress to restrict input
+#pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
+            textBoxRegoPlate.KeyPress += TextBoxRegoPlate_KeyPress;
+#pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -29,7 +39,11 @@ namespace CarTrackingPrototype
 
         private void listBoxRegoPlates_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (listBoxEnteringVehicles.SelectedIndex >= 0)
+            {
+                // Get the selected item from listBoxEnteringVehicles and set it as the text of textBoxRegoPlate
+                textBoxRegoPlate.Text = listBoxEnteringVehicles.SelectedItem?.ToString();
+            }
         }
 
         private void CarParkTracking_Load(object sender, EventArgs e)
@@ -48,11 +62,12 @@ namespace CarTrackingPrototype
                     try
                     {
                         string[] lines = File.ReadAllLines(openFileDialog.FileName);
+                        enteringVehicles.Clear(); // Limpiar la lista actual antes de cargar nuevos datos
 
                         foreach (string line in lines)
                         {
                             string rego = line.Trim();
-                            if (IsValidRego(rego))
+                            if (IsValidRego(rego) || rego.EndsWith(" (Tagged)"))
                             {
                                 enteringVehicles.Add(rego);
                             }
@@ -99,7 +114,7 @@ namespace CarTrackingPrototype
             {
                 enteringVehicles.Add(newRego);
                 UpdateListBoxes();
-                
+
             }
             else
             {
@@ -113,17 +128,17 @@ namespace CarTrackingPrototype
             if (listBoxEnteringVehicles.SelectedIndex >= 0)
             {
                 int selectedIndex = listBoxEnteringVehicles.SelectedIndex;
-                string? selectedRego = listBoxEnteringVehicles.SelectedItem?.ToString(); // Possible null assignment
 
-                textBoxRegoPlate.Text = selectedRego;
-
+                // Get the edited registration plate from textBoxRegoPlate
                 string editedRego = textBoxRegoPlate.Text.Trim();
 
                 if (IsValidRego(editedRego) && !enteringVehicles.Contains(editedRego))
                 {
+                    // Update the registration plate in the list
                     enteringVehicles[selectedIndex] = editedRego;
                     UpdateListBoxes();
                     textBoxRegoPlate.Clear();
+
                 }
                 else
                 {
@@ -134,7 +149,6 @@ namespace CarTrackingPrototype
             {
                 MessageBox.Show("Please select a registration plate to edit.");
             }
-;
         }
         private void buttonDelete_Click(object sender, EventArgs e)
         {
@@ -265,7 +279,9 @@ namespace CarTrackingPrototype
         }
         private bool IsValidRego(string rego)
         {
-            const string regexPattern = @"^[A-ZA-Z0-9]{1,7}$";
+            // Regular expression to validate the registration plate format
+            // Ensures only uppercase letters and numbers, optionally followed by " (TAGGED)"
+            const string regexPattern = @"^[A-Z0-9]{1,7}( \(TAGGED\))?$";
             return Regex.IsMatch(rego, regexPattern);
         }
 
@@ -282,8 +298,35 @@ namespace CarTrackingPrototype
                 selectedRego += " (Tagged)";
             }
 
-            enteringVehicles[selectedIndex] = selectedRego;
+            enteringVehicles.RemoveAt(selectedIndex);
+            enteringVehicles.Add(selectedRego);
+
             UpdateListBoxes();
+        }
+        private void SortEnteringVehicles()
+        {
+            // Sort the list, placing tagged vehicles at the end
+            enteringVehicles = enteringVehicles
+                .OrderBy(rego => rego.EndsWith(" (Tagged)"))
+                .ThenBy(rego => rego, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+        }
+        private void TextBoxRegoPlate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Allow only uppercase letters and numbers
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBoxRegoPlate_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            // Allow only uppercase letters and numbers
+            if (!char.IsControl(e.KeyChar) && !char.IsLetterOrDigit(e.KeyChar))
+            {
+                e.Handled = true; // This prevents non-alphanumeric characters from being entered
+            }
         }
     }
 }
