@@ -29,173 +29,163 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CarParkTracking));
-            listBoxRegoPlates = new ListBox();
-            textBoxRegoPlates = new TextBox();
+            listBoxEnteringVehicles = new ListBox();
             buttonOpenFile = new Button();
-            buttonSaveData = new Button();
-            buttonReset = new Button();
+            buttonSavePlate = new Button();
             buttonTag = new Button();
             buttonBinarySearch = new Button();
             buttonLinearSearch = new Button();
             groupBox1 = new GroupBox();
+            textBoxRegoPlate = new TextBox();
             groupBox2 = new GroupBox();
-            textBox1 = new TextBox();
-            buttonAdd = new Button();
-            buttonEdit = new Button();
-            buttonDelete = new Button();
+            buttonAddPlates = new Button();
+            buttonEditPlate = new Button();
+            buttonDeletePlate = new Button();
             groupBox3 = new GroupBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();
-            listBoxVehicleInf = new ListBox();
+            listBoxExitingVehicles = new ListBox();
             label2 = new Label();
             listBox1 = new ListBox();
+            buttonReset = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // listBoxRegoPlates
+            // listBoxEnteringVehicles
             // 
-            listBoxRegoPlates.FormattingEnabled = true;
-            listBoxRegoPlates.ItemHeight = 15;
-            listBoxRegoPlates.Location = new Point(291, 116);
-            listBoxRegoPlates.Name = "listBoxRegoPlates";
-            listBoxRegoPlates.Size = new Size(182, 409);
-            listBoxRegoPlates.TabIndex = 0;
-            listBoxRegoPlates.SelectedIndexChanged += listBoxRegoPlates_SelectedIndexChanged;
-            // 
-            // textBoxRegoPlates
-            // 
-            textBoxRegoPlates.Location = new Point(56, 22);
-            textBoxRegoPlates.Name = "textBoxRegoPlates";
-            textBoxRegoPlates.Size = new Size(106, 23);
-            textBoxRegoPlates.TabIndex = 1;
+            listBoxEnteringVehicles.FormattingEnabled = true;
+            listBoxEnteringVehicles.ItemHeight = 15;
+            listBoxEnteringVehicles.Location = new Point(312, 116);
+            listBoxEnteringVehicles.Name = "listBoxEnteringVehicles";
+            listBoxEnteringVehicles.Size = new Size(182, 409);
+            listBoxEnteringVehicles.TabIndex = 0;
+            listBoxEnteringVehicles.SelectedIndexChanged += listBoxRegoPlates_SelectedIndexChanged;
             // 
             // buttonOpenFile
             // 
-            buttonOpenFile.Location = new Point(6, 31);
+            buttonOpenFile.Location = new Point(169, 71);
             buttonOpenFile.Name = "buttonOpenFile";
             buttonOpenFile.Size = new Size(75, 23);
             buttonOpenFile.TabIndex = 2;
             buttonOpenFile.Text = "Open File";
             buttonOpenFile.UseVisualStyleBackColor = true;
+            buttonOpenFile.Click += buttonOpenFile_Click;
             // 
-            // buttonSaveData
+            // buttonSavePlate
             // 
-            buttonSaveData.Location = new Point(100, 31);
-            buttonSaveData.Name = "buttonSaveData";
-            buttonSaveData.Size = new Size(75, 23);
-            buttonSaveData.TabIndex = 3;
-            buttonSaveData.Text = "Save Data";
-            buttonSaveData.UseVisualStyleBackColor = true;
-            buttonSaveData.UseWaitCursor = true;
-            // 
-            // buttonReset
-            // 
-            buttonReset.Location = new Point(6, 71);
-            buttonReset.Name = "buttonReset";
-            buttonReset.Size = new Size(75, 23);
-            buttonReset.TabIndex = 4;
-            buttonReset.Text = "Reset";
-            buttonReset.UseVisualStyleBackColor = true;
+            buttonSavePlate.Location = new Point(6, 71);
+            buttonSavePlate.Name = "buttonSavePlate";
+            buttonSavePlate.Size = new Size(75, 23);
+            buttonSavePlate.TabIndex = 3;
+            buttonSavePlate.Text = "Save Plate";
+            buttonSavePlate.UseVisualStyleBackColor = true;
+            buttonSavePlate.UseWaitCursor = true;
+            buttonSavePlate.Click += buttonSaveData_Click;
             // 
             // buttonTag
             // 
-            buttonTag.Location = new Point(110, 57);
+            buttonTag.Location = new Point(136, 77);
             buttonTag.Name = "buttonTag";
             buttonTag.Size = new Size(75, 23);
             buttonTag.TabIndex = 5;
             buttonTag.Text = "Tag";
             buttonTag.UseVisualStyleBackColor = true;
+            buttonTag.Click += buttonTag_Click;
             // 
             // buttonBinarySearch
             // 
-            buttonBinarySearch.Location = new Point(115, 51);
+            buttonBinarySearch.Location = new Point(115, 40);
             buttonBinarySearch.Name = "buttonBinarySearch";
             buttonBinarySearch.Size = new Size(75, 23);
             buttonBinarySearch.TabIndex = 6;
             buttonBinarySearch.Text = "B Search";
             buttonBinarySearch.UseVisualStyleBackColor = true;
+            buttonBinarySearch.Click += buttonBinarySearch_Click;
             // 
             // buttonLinearSearch
             // 
-            buttonLinearSearch.Location = new Point(17, 51);
+            buttonLinearSearch.Location = new Point(34, 40);
             buttonLinearSearch.Name = "buttonLinearSearch";
             buttonLinearSearch.Size = new Size(75, 23);
             buttonLinearSearch.TabIndex = 7;
             buttonLinearSearch.Text = "L Search";
             buttonLinearSearch.UseVisualStyleBackColor = true;
+            buttonLinearSearch.Click += buttonLinearSearch_Click;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(buttonReset);
-            groupBox1.Controls.Add(buttonSaveData);
+            groupBox1.Controls.Add(textBoxRegoPlate);
+            groupBox1.Controls.Add(buttonSavePlate);
             groupBox1.Controls.Add(buttonOpenFile);
             groupBox1.Location = new Point(22, 108);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(242, 100);
+            groupBox1.Size = new Size(263, 100);
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
             groupBox1.Text = "Rego Plates File";
             groupBox1.Enter += groupBox1_Enter;
             // 
+            // textBoxRegoPlate
+            // 
+            textBoxRegoPlate.Location = new Point(79, 39);
+            textBoxRegoPlate.Name = "textBoxRegoPlate";
+            textBoxRegoPlate.Size = new Size(104, 23);
+            textBoxRegoPlate.TabIndex = 5;
+            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(buttonLinearSearch);
             groupBox2.Controls.Add(buttonBinarySearch);
-            groupBox2.Controls.Add(textBoxRegoPlates);
-            groupBox2.Location = new Point(22, 404);
+            groupBox2.Location = new Point(28, 373);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(242, 122);
+            groupBox2.Size = new Size(263, 81);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Searching Rego";
             // 
-            // textBox1
+            // buttonAddPlates
             // 
-            textBox1.Location = new Point(51, 91);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(104, 23);
-            textBox1.TabIndex = 5;
+            buttonAddPlates.Location = new Point(43, 46);
+            buttonAddPlates.Name = "buttonAddPlates";
+            buttonAddPlates.Size = new Size(75, 23);
+            buttonAddPlates.TabIndex = 10;
+            buttonAddPlates.Text = "Add";
+            buttonAddPlates.UseVisualStyleBackColor = true;
+            buttonAddPlates.Click += buttonAdd_Click;
             // 
-            // buttonAdd
+            // buttonEditPlate
             // 
-            buttonAdd.Location = new Point(17, 26);
-            buttonAdd.Name = "buttonAdd";
-            buttonAdd.Size = new Size(75, 23);
-            buttonAdd.TabIndex = 10;
-            buttonAdd.Text = "Add";
-            buttonAdd.UseVisualStyleBackColor = true;
+            buttonEditPlate.Location = new Point(136, 46);
+            buttonEditPlate.Name = "buttonEditPlate";
+            buttonEditPlate.Size = new Size(75, 23);
+            buttonEditPlate.TabIndex = 11;
+            buttonEditPlate.Text = "Edit";
+            buttonEditPlate.UseVisualStyleBackColor = true;
+            buttonEditPlate.Click += buttonEditPlate_Click;
             // 
-            // buttonEdit
+            // buttonDeletePlate
             // 
-            buttonEdit.Location = new Point(110, 26);
-            buttonEdit.Name = "buttonEdit";
-            buttonEdit.Size = new Size(75, 23);
-            buttonEdit.TabIndex = 11;
-            buttonEdit.Text = "Edit";
-            buttonEdit.UseVisualStyleBackColor = true;
-            // 
-            // buttonDelete
-            // 
-            buttonDelete.Location = new Point(17, 57);
-            buttonDelete.Name = "buttonDelete";
-            buttonDelete.Size = new Size(75, 23);
-            buttonDelete.TabIndex = 12;
-            buttonDelete.Text = "Delete";
-            buttonDelete.UseVisualStyleBackColor = true;
+            buttonDeletePlate.Location = new Point(43, 77);
+            buttonDeletePlate.Name = "buttonDeletePlate";
+            buttonDeletePlate.Size = new Size(75, 23);
+            buttonDeletePlate.TabIndex = 12;
+            buttonDeletePlate.Text = "Delete";
+            buttonDeletePlate.UseVisualStyleBackColor = true;
+            buttonDeletePlate.Click += buttonDelete_Click;
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(textBox1);
-            groupBox3.Controls.Add(buttonDelete);
-            groupBox3.Controls.Add(buttonEdit);
-            groupBox3.Controls.Add(buttonAdd);
+            groupBox3.Controls.Add(buttonDeletePlate);
+            groupBox3.Controls.Add(buttonEditPlate);
+            groupBox3.Controls.Add(buttonAddPlates);
             groupBox3.Controls.Add(buttonTag);
             groupBox3.Location = new Point(22, 219);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(242, 174);
+            groupBox3.Size = new Size(263, 136);
             groupBox3.TabIndex = 13;
             groupBox3.TabStop = false;
             groupBox3.Text = "Use Data Rego ";
@@ -221,19 +211,19 @@
             pictureBox1.TabStop = false;
             pictureBox1.Click += pictureBox1_Click;
             // 
-            // listBoxVehicleInf
+            // listBoxExitingVehicles
             // 
-            listBoxVehicleInf.FormattingEnabled = true;
-            listBoxVehicleInf.ItemHeight = 15;
-            listBoxVehicleInf.Location = new Point(493, 116);
-            listBoxVehicleInf.Name = "listBoxVehicleInf";
-            listBoxVehicleInf.Size = new Size(179, 409);
-            listBoxVehicleInf.TabIndex = 16;
+            listBoxExitingVehicles.FormattingEnabled = true;
+            listBoxExitingVehicles.ItemHeight = 15;
+            listBoxExitingVehicles.Location = new Point(514, 116);
+            listBoxExitingVehicles.Name = "listBoxExitingVehicles";
+            listBoxExitingVehicles.Size = new Size(179, 409);
+            listBoxExitingVehicles.TabIndex = 16;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(22, 547);
+            label2.Location = new Point(28, 476);
             label2.Name = "label2";
             label2.Size = new Size(83, 15);
             label2.TabIndex = 18;
@@ -243,33 +233,43 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(22, 565);
+            listBox1.Location = new Point(28, 494);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(246, 19);
+            listBox1.Size = new Size(263, 19);
             listBox1.TabIndex = 19;
+            // 
+            // buttonReset
+            // 
+            buttonReset.Location = new Point(88, 71);
+            buttonReset.Name = "buttonReset";
+            buttonReset.Size = new Size(75, 23);
+            buttonReset.TabIndex = 6;
+            buttonReset.Text = "Reset";
+            buttonReset.UseVisualStyleBackColor = true;
+            buttonReset.UseWaitCursor = true;
+            buttonReset.Click += this.buttonReset_Click;
             // 
             // CarParkTracking
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(855, 627);
+            ClientSize = new Size(729, 630);
             Controls.Add(listBox1);
             Controls.Add(label2);
-            Controls.Add(listBoxVehicleInf);
+            Controls.Add(listBoxExitingVehicles);
             Controls.Add(pictureBox1);
             Controls.Add(label1);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Controls.Add(listBoxRegoPlates);
+            Controls.Add(listBoxEnteringVehicles);
             Name = "CarParkTracking";
             Text = "CarParkTracking";
             Load += CarParkTracking_Load;
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
             groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -277,25 +277,25 @@
 
         #endregion
 
-        private ListBox listBoxRegoPlates;
-        private TextBox textBoxRegoPlates;
+        private ListBox listBoxEnteringVehicles;
         private Button buttonOpenFile;
-        private Button buttonSaveData;
+        private Button buttonSavePlate;
         private Button buttonReset;
         private Button buttonTag;
         private Button buttonBinarySearch;
         private Button buttonLinearSearch;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
-        private TextBox textBox1;
-        private Button buttonAdd;
-        private Button buttonEdit;
-        private Button buttonDelete;
+        private TextBox textBoxRegoPlate;
+        private Button buttonAddPlates;
+        private Button buttonEditPlate;
+        private Button buttonDeletePlate;
         private GroupBox groupBox3;
         private Label label1;
         private PictureBox pictureBox1;
-        private ListBox listBoxVehicleInf;
+        private ListBox listBoxExitingVehicles;
         private Label label2;
         private ListBox listBox1;
+       
     }
 }
